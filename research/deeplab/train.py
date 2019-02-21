@@ -25,7 +25,7 @@ from deeplab.datasets import segmentation_dataset
 from deeplab.utils import input_generator
 from deeplab.utils import train_utils
 from deployment import model_deploy
-
+import pdb
 slim = tf.contrib.slim
 
 prefetch_queue = slim.prefetch_queue
@@ -67,7 +67,7 @@ flags.DEFINE_integer('save_interval_secs', 1200,
 flags.DEFINE_integer('save_summaries_secs', 600,
                      'How often, in seconds, we compute the summaries.')
 
-flags.DEFINE_boolean('save_summaries_images', False,
+flags.DEFINE_boolean('save_summaries_images', True,
                      'Save sample inputs, labels, and semantic predictions as '
                      'images to summary.')
 
@@ -186,7 +186,6 @@ def _build_deeplab(inputs_queue, outputs_to_num_classes, ignore_label):
       'logits_1.50'.
   """
   samples = inputs_queue.dequeue()
-
   # Add name to input and label nodes so we can add to summary.
   samples[common.IMAGE] = tf.identity(
       samples[common.IMAGE], name=common.IMAGE)
